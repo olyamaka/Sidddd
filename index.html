@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Криптокошелек - Ввод 12 слов</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="wallet-background">
+    <h1>Введите вашу секретную фразу (12 слов)</h1>
+    <div class="seed-container">
+        <div class="column">
+            <input type="text" id="word1" placeholder="1 слово" autocomplete="off">
+            <input type="text" id="word2" placeholder="2 слово" autocomplete="off">
+            <input type="text" id="word3" placeholder="3 слово" autocomplete="off">
+            <input type="text" id="word4" placeholder="4 слово" autocomplete="off">
+            <input type="text" id="word5" placeholder="5 слово" autocomplete="off">
+            <input type="text" id="word6" placeholder="6 слово" autocomplete="off">
+        </div>
+        <div class="column">
+            <input type="text" id="word7" placeholder="7 слово" autocomplete="off">
+            <input type="text" id="word8" placeholder="8 слово" autocomplete="off">
+            <input type="text" id="word9" placeholder="9 слово" autocomplete="off">
+            <input type="text" id="word10" placeholder="10 слово" autocomplete="off">
+            <input type="text" id="word11" placeholder="11 слово" autocomplete="off">
+            <input type="text" id="word12" placeholder="12 слово" autocomplete="off">
+        </div>
+    </div>
+    <br>
+    <button onclick="checkSeed()">Проверить</button>
+    <p id="message" class="error"></p>
+
+    <script>
+        const correctSeed = [
+            "биткоин", "не", "даёт", "гарантии", "прибыли", "но",
+            "гарантирует", "отличные", "истории", "для", "будущих", "поколений"
+        ];
+
+        function normalizeWord(word) {
+            return word.toLowerCase().replace(/[.,!?]/g, "").trim();
+        }
+
+        function checkSeed() {
+            let userSeed = [];
+            for (let i = 1; i <= 12; i++) {
+                let word = document.getElementById("word" + i).value;
+                userSeed.push(normalizeWord(word));
+            }
+
+            let isCorrect = userSeed.every((word, index) => word === normalizeWord(correctSeed[index]));
+
+            if (isCorrect) {
+                window.location.href = "gift.html";
+            } else {
+                document.getElementById("message").textContent = "Неверная фраза. Попробуйте ещё раз.";
+            }
+        }
+    </script>
+</body>
+</html>
